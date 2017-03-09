@@ -3,6 +3,7 @@ namespace Modular\Services;
 
 use Modular\Model;
 use Modular\Object;
+use Modular\Traits\enabler;
 
 /**
  * A service provides functions which can be shared by multiple controllers, extensions, tasks etc, possibly
@@ -14,17 +15,19 @@ use Modular\Object;
  * @package Modular\Services
  */
 class Service extends Object {
+	use enabler;
+
 	// this can be set on a derived class to an injector Service name, e.g. 'SheepCountingService' to use instead of
 	// the called class.
 	const ServiceName = '';
-	
+
 	/**
 	 * @return $this
 	 */
 	public static function factory() {
 		return \Injector::inst()->get(static::ServiceName ?: get_called_class(), true, func_get_args());
 	}
-	
+
 	/**
 	 * Pass the request on to extensions of this service, who should check that the incoming serviceName matches their
 	 * class name before doing anything.
@@ -39,5 +42,5 @@ class Service extends Object {
 			static::factory()->extend('request', $serviceName, $data, $options)
 		);
 	}
-	
+
 }
