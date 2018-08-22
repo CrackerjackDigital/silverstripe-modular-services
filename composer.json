@@ -30,5 +30,10 @@
 	"extra": {
 		"installer-name": "modular-services"
 	},
+	"autoload": {
+		"files": [
+			"autoloader.php"
+		]
+	},
 	"minimum-stability": "dev"
 }
